@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      // https://leetcode-cn.com/problems/longest-common-prefix/
+      /**
+       * @param {string[]} strs
+       * @return {string}
+       */
+      var longestCommonPrefix = function (strs) {
+        // 1. 如果数组为空数组，则返回 ''
+        if (strs.length === 0) return "";
+        // 2. 如果数组长度只有一位，则返回第一个元素
+        if (strs.length === 1) return strs[0];
+        // 3. 取出数组第一个元素和后续元素
+        let [first, ...resets] = strs;
+        // 4. 设置最长公共前缀数量
+        let max = 0;
+        // 5. 遍历第一个字符串元素，遍历后续元素和和当前遍历字符串一一对比
+        for (let i = 0; i < first.length; i++) {
+          // 6. 如果发现有不一样的字符串，立即停止循环
+          if (!resets.every((str) => first[i] === str[i])) {
+            break;
+          } else {
+            // 7. 如果每一个下标的字符串都相同，则max的长度等于当前下标 + 1
+            max = i + 1;
+          }
+        }
+        // 8.最后根据长度截取字符串并return返回
+        return first.substring(0, max);
+      };
+
+      var strs = ["flower","flow","flight"];
+      console.log(longestCommonPrefix(strs));
+    </script>
+  </body>
+</html>
