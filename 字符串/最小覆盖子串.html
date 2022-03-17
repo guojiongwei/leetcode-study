@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <script>
+    // https://leetcode-cn.com/problems/minimum-window-substring/
+  /**
+   * @param {string} s
+   * @param {string} t
+   * @return {string}
+   */
+  var minWindow = function(s, t) {
+      // 1. 定义t字符串的map， 和滑动窗口window
+      let need = {}, window = {};
+      let len = 0
+      // 2. 遍历t数据把字符数量添加到need中
+      for (let c of t) {
+        if (!need[c]) {
+          need[c] = 1
+          len ++
+        } else {
+          need[c]++;
+        }
+      }
+      // 3. 定义左右指针
+      let left = 0, right = 0;
+      // 4. 定义验证成功次数
+      let valid = 0;
+      // 5. 定义当前最小字符串长度和当前最小的字符串
+      let minLen = s.length + 1, minStr = '';
+      // 6.用右指针开始遍历
+      while (right < s.length) {
+        // 7. 获取到当前遍历的字符串
+        const d = s[right];
+        // 8. 递增右指针
+        right++;
+        // 9.记录遍历过的字符和出现的次数
+        if (!window[d]) window[d] = 1;
+        else window[d]++;
+
+        // 10. 如果字符出现的次数在t字符串中，并且数量和t字符串的数量相等，则匹配成功数量字段vaild++
+        if (need[d] && need[d] === window[d]) {
+          valid++;
+        }
+        // 11. 如果 匹配成功的次数等于t字符串的中字符数量
+        while (valid === len) {
+          // 12. 如果当前字符的长度小于上一个最小长度，则改为最小的长度
+          if (right - left < minLen) {
+              minLen = right - left;
+              minStr = s.slice(left, right);
+          }
+          // 13. 获取到左指针下标的字符串
+          let c = s[left];
+          // 14. 左指针 ++
+          left++;
+          // 15. 左指针执行的字符串在滑动窗口中的数量--
+          window[c]--;
+          // 16. 如果当前值再need中，并且小于了need值的数量，则验证成功的valid --
+          // 如果当前的值不在need中，获取window[c] 不小于 need[c],代表还是有多余匹配的字段
+          // 继续执行
+          if (need[c] && window[c] < need[c]) {
+              valid--;
+          }
+        }
+      }
+      return minStr;
+  };
+  var s = "ADOBECODEBANC";
+  var t = "ABC"
+  console.log(minWindow(s, t))
+
+  </script>
+</body>
+</html>
