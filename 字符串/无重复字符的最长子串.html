@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <script>
+    // https://leetcode-cn.com/problems/longest-substring-without-repeating-characters/
+    // 输入: s = "abcabcbb"
+    // 输出: 3
+    // 解释: 因为无重复字符的最长子串是 "abc"，所以其长度为 3。
+
+    var lengthOfLongestSubstring = function(s) {
+      // 1. 如果字符串长度小于2，内部肯定无重复，直接返回字符串的长度
+      if(s.length < 2) return s.length
+      // 2. 定义map来存储已有的字符串
+      let map = {}
+      // 3. 定义左侧指针，和最长子串长度初始值
+      let left = 0, max = 1
+      // 4. 开始遍历字符串
+      for(let i = 0; i < s.length; i ++) {
+        let v = s[i]
+        // 5. 如果map里面已经存储了该字符串，则把该字符串前面的字符串全部从map中删除
+        // 直到map中没有该字符串
+        while(map[v]) {
+          delete map[s[left]]
+          left ++
+        }
+        // 6. 再把该字符串添加到map中
+        map[v] = true
+        // 7. 当前子串的最大长度大一原先存储的最大长度，则更新最大长度
+        if(i - left + 1 > max) {
+          max = i - left + 1
+        }
+      }
+      // 8. 返回最大长度
+      return max
+    }
+    let s = "bbbcccaaaca"
+    console.log(lengthOfLongestSubstring(s))
+  </script>
+</body>
+</html>
