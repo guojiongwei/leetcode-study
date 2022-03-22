@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      // https://leetcode-cn.com/problems/subarray-sum-equals-k/
+      // 输入：nums = [1,1,1], k = 2
+      // 输出：2
+      /**
+       * @param {number[]} nums
+       * @param {number} k
+       * @return {number}
+       */
+      // var subarraySum = function(nums, k) {
+      //   let length = nums.length
+      //   let count = 0
+      //   for(let i = 0; i < length; i ++) {
+      //     let v = total = nums[i], right = i + 1
+      //     if(v === k) {
+      //       count ++
+      //     }
+      //     while(right < length) {
+      //       total += nums[right]
+      //       right ++
+      //       if(total === k) {
+      //         count ++
+      //       }
+      //     }
+      //   }
+      //   return count
+      // };
+
+      var subarraySum = function (nums, k) {
+        let count = 0, prev = 0, map = new Map()
+        map.set(0, 1)
+
+        for(let i = 0; i < nums.length; i ++) {
+          let v = nums[i]
+          prev += v
+          if(map.has(prev - k)) {
+            count += map.get(prev - k)
+          }
+          if(map.has(prev)) {
+            map.set(prev, map.get(prev) + 1)
+          } else {
+            map.set(prev, 1)
+          }
+          console.log(count, v, prev, map)
+        }
+        return count
+      }
+      const nums = [1, 2, 3, -1, -2, 0, 0, 3];
+      console.log(subarraySum(nums, 3));
+    </script>
+  </body>
+</html>
