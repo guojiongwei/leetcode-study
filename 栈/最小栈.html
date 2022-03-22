@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      // 设计一个支持 push ，pop ，top 操作，并能在常数时间内检索到最小元素的栈。
+
+      // 实现 MinStack 类:
+
+      // MinStack() 初始化堆栈对象。
+      // void push(int val) 将元素val推入堆栈。
+      // void pop() 删除堆栈顶部的元素。
+      // int top() 获取堆栈顶部的元素。
+      // int getMin() 获取堆栈中的最小元素。
+
+      /**
+       * initialize your data structure here.
+       */
+      var MinStack = function () {
+        this.stack = [];
+        this.minArr = [];
+        this.count = 0;
+        this.min = Number.MAX_SAFE_INTEGER;
+      };
+      /**
+       * @param {number} x
+       * @return {void}
+       */
+      MinStack.prototype.push = function (x) {
+        this.min = Math.min(this.min, x);
+        this.minArr[this.count] = this.min;
+        this.stack[this.count] = x;
+        this.count++;
+      };
+      /**
+       * @return {void}
+       */
+      MinStack.prototype.pop = function () {
+        const element = this.stack[this.count - 1];
+        if (this.count >= 2) {
+          this.min = this.minArr[this.count - 2];
+        } else {
+          this.min = Number.MAX_SAFE_INTEGER;
+        }
+        delete this.tack;
+        this.count--;
+        return element;
+      };
+      /**
+       * @return {number}
+       */
+      MinStack.prototype.top = function () {
+        if (this.count >= 1) {
+          return this.stack[this.count - 1];
+        }
+        return null;
+      };
+      /**
+       * @return {number}
+       */
+      MinStack.prototype.getMin = function () {
+        const element = this.minArr[this.count - 1];
+        return element;
+      };
+      /**
+       * Your MinStack object will be instantiated and called as such:
+       * var obj = new MinStack()
+       * obj.push(x)
+       * obj.pop()
+       * var param_3 = obj.top()
+       * var param_4 = obj.getMin()
+       */
+
+      const tack = new MinStack();
+      tack.push(5);
+      tack.push(4);
+      tack.push(3);
+      tack.push(2);
+      tack.push(1);
+      console.log(tack);
+      console.log(tack.getMin());
+      console.log(tack.top());
+      tack.pop();
+      console.log(tack.getMin());
+      console.log(tack.top());
+    </script>
+  </body>
+</html>
