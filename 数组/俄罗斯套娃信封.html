@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      /**
+      https://leetcode-cn.com/problems/russian-doll-envelopes/
+      输入：envelopes = [[5,4],[6,4],[6,7],[2,3]]
+      输出：3
+      解释：最多信封的个数为 3, 组合为: [2,3] => [5,4] => [6,7]。
+    */
+      /**
+       * @param {number[][]} envelopes
+       * @return {number}
+       */
+      // var maxEnvelopes = function(envelopes) {
+      //   let length = envelopes.length
+      //   if(length < 2) return length
+      //   let max = 1
+      //   for(let i = 0; i < length; i ++) {
+      //     let left = 0, currrntMax = 1, iItem = envelopes[i];
+      //     var map = {}
+      //     while(left < length) {
+      //       let lItem = envelopes[left]
+      //       if((!map[lItem[0]] && iItem[0] > lItem[0]) &&(iItem[1] > lItem[1])) {
+      //         currrntMax ++
+      //         map[lItem[0]] = true
+      //       }
+      //       left ++
+      //     }
+      //     if(currrntMax > max) {
+      //       max = currrntMax
+      //     }
+      //   }
+      //   return max
+      // };
+
+      /**
+       * @param {number[][]} envelopes
+       * @return {number}
+       */
+      var maxEnvelopes = function (envelopes) {
+        if (envelopes.length < 1) return envelopes.length;
+        envelopes.sort((a, b) => a[0] !== b[0] ? a[0] - b[0] : b[1] - a[1])
+        console.log(envelopes)
+        let arr = [];
+        for (let [key, value] of envelopes) {
+          arr.push(value);
+        }
+        return LIS(arr);
+      };
+      function LIS(arr) {
+      let dp = [];
+      let maxAns = 0;
+      for (let i = 0; i < arr.length; i++) {
+        dp[i] = 1;
+      }
+      console.log(arr, dp)
+      for (let i = 1; i < arr.length; i++) {
+        for (let j = i; j >= 0; j--) {
+          if (arr[i] > arr[j]) {
+            dp[i] = Math.max(dp[i], dp[j] + 1)
+          }
+          maxAns = Math.max(maxAns, dp[i]);
+        }
+      }
+      console.log(dp)
+      return maxAns;
+    }
+      var envelopes = [[30,50],[12,2],[3,4],[3,5],[12,15]];
+      console.log(maxEnvelopes(envelopes));
+
+    </script>
+  </body>
+</html>

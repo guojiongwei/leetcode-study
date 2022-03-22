@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script src="./utils.js"></script>
+    <script>
+      // https://leetcode-cn.com/problems/lowest-common-ancestor-of-a-binary-tree
+      function TreeNode(val) {
+        this.val = val;
+        this.left = this.right = null;
+      }
+
+      var root = arrayToBinaryTree([3, 5, 1, 6, 2, 0, 8, null, null, 7, 4]),
+        p = new TreeNode(5),
+        q = new TreeNode(1);
+      // 输出：3
+      // 解释：节点 5 和节点 1 的最近公共祖先是节点 3 。
+      var lowestCommonAncestor = function (root, p, q) {
+        // 1. 定义map节点用来存储所有的节点父节点
+        let map = new Map();
+        // 2.使用深度优先遍历，把每一个节点的值作为key，父节点作为value存入map中
+        function dfs(root) {
+          if (root.left !== null) {
+            map.set(root.left.val, root);
+            dfs(root.left);
+          }
+          if (root.right !== null) {
+            map.set(root.right.val, root);
+            dfs(root.right);
+          }
+        }
+        dfs(root);
+
+        // 3.定义set， 用来存储p节点的所有父节点
+        let set = new Set()
+        while (p !== undefined) {
+          set.add(p.val);
+          p = map.get(p.val);
+        }
+
+        // 4.不断从set查找q节点的父节点，如果匹配到有父节点在set中
+        // 则此节点就是两个p和p共同的父节点
+        while (q !== undefined) {
+          if (set.has(q.val)) {
+            return q;
+          }
+          q = map.get(q.val);
+        }
+        return null;
+      };
+      console.log(lowestCommonAncestor(root, p, q));
+    </script>
+  </body>
+</html>

@@ -17,23 +17,33 @@
      * @return {string}
      */
     var longestPalindrome = function(s) {
+      // 1. 如果长度小于2， 肯定是回文，直接return s
       if(s.length < 2) return s
+      // 2.长度大于1，肯定会有一个回文字符串，设置最大回文字符串max为1
+      // 记录回文字符串的开始位置下标start = 0
       let max = 1, start = 0;
+      // 3. 遍历字符串
       for(let i = 0; i < s.length - 1; i ++) {
+        // 4.以当前下标为中心，对比前后字符串是否相等bab
         test(i - 1, i + 1, i)
+        // 5.处理当前字符串和下一个字符串相等情况，例如aa
         test(i, i + 1, i)
       }
 
       function test(left, right, i) {
+        // 如果左子针大于等0，并且右指针小于s的长度，并且左指针字符串等于右指针字符串的
         while(left >= 0 && right < s.length && s[left] === s[right]) {
+          // 如果当前回文字符串的长度大于上次的长度，则重新设置长度和开始位置
           if(right - left + 1 > max) {
             start = left
             max = right - left + 1
           }
+          // 然后坐标继续向两边扩散
           left --
           right ++
         }
       }
+      // 最后根据下标开始位置和回文长度，截取出回文字符串
       return s.substring(start, start + max)
     };
     let s = "babad"

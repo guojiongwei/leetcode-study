@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script src="./utils.js"></script>
+    <script>
+      /**
+       * @param {TreeNode} root
+       * @param {number} val
+       * @return {TreeNode}
+       */
+      var searchBST = function (root, val) {};
+      var root = arrayToBinarySearchTree([4, 2, 7, 1, 3]), val = 2;
+      var searchBST = function (root, val) {
+        // 1. 如果root为null或者undefind代表未查询到，返回null
+        if(root == null) return null
+        // 2. 如果root的val等于val，代表找到该节点
+        if(root.val === val) return root
+        // 3. 如果节点的val大于val,则用该节点的左子节点继续查找
+        if(root.val > val) {
+          return searchBST(root.left,  val)
+        } else {
+          // 4. 如果root节点的val < val,则用该节点的右子节点继续查找
+          return searchBST(root.right,  val)
+        }
+      };
+      console.log(searchBST(root, 3))
+    </script>
+  </body>
+</html>

@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <script src="./utils.js"></script>
+<script>
+  /**
+   * https://leetcode-cn.com/problems/delete-node-in-a-bst/
+   * Definition for a binary tree node.
+   * function TreeNode(val) {
+   *     this.val = val;
+   *     this.left = this.right = null;
+   * }
+   */
+  /**
+   * @param {TreeNode} root
+   * @return {number}
+   */
+  var countNodes = function(root) {
+      if (root == null) return 0;
+      let l = root, r = root;
+      let lh = 0, rh = 0;
+      while (l != null) {
+        l = l.left;
+        lh++;
+      }
+      while (r != null) {
+        r = r.right;
+        rh++;
+      }
+      if (lh === rh) {
+        return Math.pow(2, lh) - 1;
+      }
+      return 1 + countNodes(root.left) + countNodes(root.right);
+  };
+
+  console.log(countNodes(arrayToBinaryTree(Array.from({length: 10000}).map((_, i) => i))))
+</script>
+</body>
+</html>
