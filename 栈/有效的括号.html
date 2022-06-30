@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      // https://leetcode.cn/problems/valid-parentheses/
+      // 输入：s = "()[]{}"
+      // 输出：true
+      /**
+       * @param {string} s
+       * @return {boolean}
+       */
+      var isValid = function (s) {
+        s = s || "";
+        // 1. 如果字符串的长度是奇数，则肯定不是有效的括号
+        if (s.length % 2 !== 0) return false;
+        // 2. 准备一个栈存储左面的括号
+        const stack = [];
+        // 3. 准备map结构匹配对应右侧括号
+        const map = {
+          "[": "]",
+          "(": ")",
+          "{": "}",
+        };
+        // 4. 从下标0开始遍历字符串
+        for (let i = 0; i < s.length; i++) {
+          const v = s[i];
+          // 5. 如果map结构里面有，代表是左面的括号
+          if (map[v]) {
+            stack.push(v);
+          } else {
+            // 如果左侧括号不在栈中，就把最后一个括号从栈中取出来
+            // 把当前遍历到字符串和栈最后一个左括号对应的右括号对比
+            // 如果一致就继续遍历，不一致就return false
+            const last = stack.pop();
+            if (map[last] !== v) return false;
+          }
+        }
+        // 如果最后stack的长度不为0，则代表括号已全部匹配，反之则不是有效字符串
+        return stack.length === 0;
+      };
+      //
+      var s = "()[]{}"
+      console.log(isValid(s))
+    </script>
+  </body>
+</html>
