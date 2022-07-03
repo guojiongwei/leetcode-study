@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script src="./utils.js"></script>
+    <script>
+      // https://leetcode.cn/problems/binary-tree-preorder-traversal/
+      var preorderTraversal = function (root) {
+        // 1. 准备结果数组
+        var res = [];
+        function dfs(root){
+           // 2. 如果节点为空就停止执行
+            if(!root) return;
+            // 3. 把当前遍历到的节点添加到res
+            res.push(root.val);
+            // 4. 再递归左侧节点
+            dfs(root.left);
+            // 5. 再递归左侧节点
+            dfs(root.right);
+            return res;
+        }
+        // 前序遍历就相当于是深度优先遍历
+        // 尾调优化
+        return dfs(root);
+      };
+      let root = arrayToBinaryTree([1,null,2,3])
+      console.log(preorderTraversal(root))
+    </script>
+  </body>
+</html>
