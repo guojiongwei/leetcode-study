@@ -1,0 +1,48 @@
+<!--
+ * @Author: 郭炯韦 18530633992@163.com
+ * @Date: 2022-07-04 20:48:25
+ * @LastEditors: 郭炯韦 18530633992@163.com
+ * @LastEditTime: 2022-07-04 20:53:55
+ * @FilePath: /leetcode-study/二叉树/二叉树的先序遍历-递归实现 copy.html
+ * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
+-->
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script src="./utils.js"></script>
+    <script>
+      // https://leetcode.cn/problems/binary-tree-preorder-traversal/
+      var preorderTraversal = function (root) {
+        // 1. 准备结果数组
+        let res = [];
+          // 2. 如果节点为空就停止执行
+        if (!root) {
+          return res;
+        }
+        // 3. 准备一个栈数据结构
+        let stack = [root];
+        // 4. 当前正在迭代的值
+        let current;
+        // 5. 如果栈不为空，就继续遍历
+        while (stack.length) {
+          // 6. 取出栈中第一个元素
+          current = stack.pop();
+          // 7. 把元素添加到res数组
+          res.push(current.val);
+          // 8. 然后把左右子节点分别添加到res中继续遍历
+          current.right && stack.push(current.right);
+          current.left && stack.push(current.left);
+        }
+        return res;
+      };
+      let root = arrayToBinaryTree([1, null, 2, 3]);
+      console.log(preorderTraversal(root));
+    </script>
+  </body>
+</html>
