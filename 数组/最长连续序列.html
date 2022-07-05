@@ -16,27 +16,27 @@
        * @param {number[]} nums
        * @return {number}
        */
-      var longestConsecutive = function (nums) {
-        if (nums.length === 0) return 0;
-        var map = {};
-        for (let val of nums) {
-          map[val] = true;
-        }
-        const n = nums.length;
-        let globalMax = 1;
-        for (let i = 0; i < n; i++) {
-          let max = 1,
-            temp = nums[i];
-          if (!map[temp - 1]) {
-            while (map[temp + 1]) {
-              max++;
-              temp = temp + 1;
-            }
-            globalMax = Math.max(globalMax, max);
-          }
-        }
-        return globalMax;
-      };
+      // var longestConsecutive = function (nums) {
+      //   if (nums.length === 0) return 0;
+      //   var map = {};
+      //   for (let val of nums) {
+      //     map[val] = true;
+      //   }
+      //   const n = nums.length;
+      //   let globalMax = 1;
+      //   for (let i = 0; i < n; i++) {
+      //     let max = 1,
+      //       temp = nums[i];
+      //     if (!map[temp - 1]) {
+      //       while (map[temp + 1]) {
+      //         max++;
+      //         temp = temp + 1;
+      //       }
+      //       globalMax = Math.max(globalMax, max);
+      //     }
+      //   }
+      //   return globalMax;
+      // };
 
       /**
        * @param {number[]} nums

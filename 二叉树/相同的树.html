@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<script src="./utils.js"></script>
+<body>
+  <script>
+    // https://leetcode-cn.com/problems/same-tree/
+    const root = arrayToBinaryTree(Array.from({ length: 100 }).map((_, i) => i))
+    const root1 = arrayToBinaryTree(Array.from({ length: 100 }).map((_, i) => i))
+
+    /**
+     * Definition for a binary tree node.
+     * function TreeNode(val, left, right) {
+     *     this.val = (val===undefined ? 0 : val)
+     *     this.left = (left===undefined ? null : left)
+     *     this.right = (right===undefined ? null : right)
+     * }
+     */
+    /**
+     * @param {TreeNode} p
+     * @param {TreeNode} q
+     * @return {boolean}
+     */
+    var isSameTree = function(p, q) {
+      // 1. 如果对比双方都为null，代表执行到最底层的节点了，返回true
+      if(p === null && q === null) return true
+      // 2. 如果p和q都不为null， 并且彼此的val相等，并且左节点和右节点递归对比也相等，就返回true
+      if(
+        (p && q) &&
+        (p.val === q.val) &&
+        isSameTree(p.left, q.left) &&
+        isSameTree(p.right, q.right)
+      ) {
+        return true
+      }
+      // 3. 如果对比不一样就返回false
+      return false
+    };
+
+    console.log(isSameTree(root, root1))
+  </script>
+</body>
+</html>
