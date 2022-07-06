@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      const less = {
+        body: {
+          ".a": {
+            color: "red",
+            ".b": {
+              "font-size": "20px",
+            },
+          },
+          ".c": {
+            color: "yellow",
+          },
+        },
+      };
+
+
+      function lessToCss(json) {
+        // 1. 封装结果数组
+        let res = {}
+
+        // 封装处理有子对象的方法
+        function toCss(parentKey, data) {
+          // 3. 定义对象收集value的map
+          const obj = {}
+          // 4. 遍历数据，如果子节点有对象就继续遍历
+          for(let key in data) {
+            const value =  data[key]
+            if(typeof value == 'object' && value !== null) {
+              toCss(parentKey + ' ' + key, value)
+            } else {
+              // 5. 不是对象的话就赋值给obj
+              obj[key] = value
+            }
+          }
+          // 最后以parentkey设置到最终结果的value上
+          res[parentKey] = obj
+        }
+
+        for(let key in json) {
+          const value =  json[key]
+          if(typeof value == 'object' && value !== null) {
+            isHasChildren = true
+            toCss(key, value)
+          } else {
+            res[key] = value
+          }
+        }
+        return res
+      }
+
+      console.log(lessToCss(less))
+    </script>
+  </body>
+</html>
