@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <script>
+    const str = '   1234   '
+
+    // 正则实现
+    String.prototype.regTrim = function() {
+      // 匹配前面的空格和后面的空格，然后替换为空字符串
+      return this.replace(/^\s+|\s+$/g, '')
+    }
+
+    // 遍历实现
+    String.prototype.Mytrim = function() {
+      // 1. 先复制一份原始的字符串
+      let newStr = this
+
+      // 2. 先正序遍历，如果匹配到空字符串,就把newStr最前面的空格截取掉，不为空格时break停止循序
+      for(let i = 0; i < this.length; i ++) {
+        if(this[i] === ' ') {
+          newStr = newStr.substr(1)
+        } else break
+      }
+      // 3. 如果字符串已经为空了，就直接返回，不用再继续倒序遍历
+      if(!newStr) return newStr
+      // 4. 再正序遍历，如果匹配到空字符串, 就把newStr最后面的空格截取掉，不为空格时break停止循序
+      for(let i = this.length - 1; i >= 0; i --) {
+        if(this[i] === ' ') {
+          newStr = newStr.substr(0, newStr.length - 1)
+        } else break
+      }
+      // 5. 返回截取完前后空格的字符串
+      return newStr
+    }
+
+    console.log(str.regTrim())
+    console.log(str.Mytrim())
+  </script>
+</body>
+</html>
