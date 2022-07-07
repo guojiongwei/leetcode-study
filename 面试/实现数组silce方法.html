@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <script>
+
+    // 添加判断是否是number数字
+    const isNumber = num => typeof num === "number" && !Number.isNaN(num)
+
+    // 原slice方法，接收两个参数(startIndex, endIndex), 开始下标为负数时从末尾开始计算下标
+
+    // 在原型上添加MySlice方法
+
+    // 处理难点
+    // 1. 处理没传参数和单个参数以及传两个参数的情况
+    // 2. 处理下标为负数的情况
+
+    // 思路判断参数个数
+    // 1. 如果没有传参就返回浅拷贝的数组
+    // 2. 如果传了参数，判断该参数是否是负数，如果是负数，就加上length，得出真正的下标
+    // 3. 如果只传了一个参数，就从该位置一直截取到末尾
+    Array.prototype.MySilce = function(start, end) {
+
+      // 获取到原字符串的length，和结果res
+      let length = this.length, res = []
+
+      // 如果开始下标和结束下标都是undefined，就浅拷贝一份原数据返回
+      if(start === undefined && end === undefined) return [...this]
+
+      // 判断开始下标，如果小于0，就加上length计算从末尾开始算的当前下标
+      if(start < 0) {
+        start = length + start
+      }
+      // 判断结束下标，如果小于0，就加上length计算从末尾开始算的当前下标
+      if(end < 0) {
+        end = length + end
+      }
+
+      // end和length，取比较小的那个，避免下标溢出
+      end = Math.min(length, end)
+      // 如果有两个参数，就从开始下标遍历到结束下标
+      if(isNumber(start) && isNumber(end)) {
+        for(let i = start; i < end; i ++) {
+          res.push(this[i])
+        }
+      // 如果只有一个参数，就从开始下标遍历到末尾
+      } else if(isNumber(start)) {
+        for(let i = start; i < length; i ++) {
+          res.push(this[i])
+        }
+      }
+      // 最后返回res结果
+      return res
+    }
+
+    const arr = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+    console.log(arr.MySilce(), arr.slice())
+    console.log(arr.MySilce(1, 20), arr.slice(1, 20))
+    console.log(arr.MySilce(4, -2), arr.slice(4, -2))
+    console.log(arr.MySilce(-2), arr.slice( -2))
+    console.log(arr.MySilce(1), arr.slice(1))
+    console.log(arr.MySilce(1, 1), arr.slice(1, 1))
+  </script>
+</body>
+</html>
