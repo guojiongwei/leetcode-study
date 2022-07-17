@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      const arr = [9, 8, 7, 6, 5, 4, 3, 2, 1]
+      /**
+       * 插入排序
+       * 插入排序每次排一个数组项，
+       * 以此方式构建最后的排序数组。
+       * 假定第一项已经排序了。
+       * 接着， 它和第二项进行比较——第二项是应该待在原位还是插到第一项之前呢?
+       * 这样，头两项就已正确 排序，接着和第三项比较(它是该插入到第一、第二还是第三的位置呢)，以此类推。
+       */
+      function insertionSort(array) {
+        // 1. 获取排序数组长度
+        const length = array.length
+        // 2. 定义当前遍历的值
+        let temp
+        for (let i = 1; i < length; i++) {
+          let j = i
+          // 3. temp赋值给当前数组的值
+          temp = array[i]
+          // 4. 如果j的值大于0，并且当前对比的前一个值小于当前遍历的值
+          // 就把当前对比的值的下标赋值给前一个值，然后减少j的下标，继续对比
+          while (j > 0 && array[j - 1] > temp) {
+            array[j] = array[j - 1]
+            j--
+          }
+          // 找到当前遍历最小的值后，赋值给当前遍历值
+          array[j] = temp
+        }
+        return array
+      }
+
+      console.log(insertionSort(arr))
+    </script>
+  </body>
+</html>
