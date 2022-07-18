@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      const arr = [9, 8, 7, 6, 5, 4, 3, 2, 1]
+
+      /**
+       * 归并排序是一种分而治之算法。
+       * 其思想是将原始数组切分成较小的数组，
+       * 直到每个小数组只 有一个位置，接着将小数组归并成较大的数组，
+       * 直到最后只有一个排序完毕的大数组。
+       */
+      function mergeSort(array) {
+        // 1. 只有数组长度大于1时才处理
+        if (array.length > 1) {
+          // 2. 获取数组长度
+          const length = array.length
+          // 3. 取数组中间下标
+          const middle = Math.floor(length / 2)
+          // 4. 对数组截取前半区和后半区，递归调用归并排序
+          const left = mergeSort(array.slice(0, middle))
+          const right = mergeSort(array.slice(middle, length))
+          // 5. 前半区和后半区处理完成后，进行合并
+          array = merge(left, right)
+        }
+        return array
+      }
+
+      function merge(left, right) {
+        // 定义初始下标
+        let i = 0,
+          j = 0
+        // 定义结果数组
+        const result = []
+        // 比较left数组是否比right数组下标内容小，小的话就添加left的值，反之添加right的值
+        while (i < left.length && j < right.length) {
+          result.push(left[i] < right[j] ? left[i++] : right[j++])
+        }
+        // 最后把未遍历完成的值concat后返回
+        return result.concat(i < left.length ? left.slice(i) : right.slice(j))
+      }
+
+      console.log(mergeSort(arr))
+    </script>
+  </body>
+</html>
