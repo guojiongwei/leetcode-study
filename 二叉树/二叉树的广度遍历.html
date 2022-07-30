@@ -1,32 +1,39 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Document</title>
-</head>
-<body>
-  <script src="./utils.js"></script>
-  <script>
-    const root = arrayToBinaryTree(Array.from({ length: 100 }).map((_, i) => i))
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script src="./utils.js"></script>
+    <script>
+      const root = arrayToBinaryTree(Array.from({ length: 100 }).map((_, i) => i))
 
-    function bfs(root, callback) {
-      if(root === null) return
-      const queue = [ root ]
-      while(queue.length) {
-        const node = queue.shift()
-        console.log(node.val)
-        if(node.left !== null) {
-          queue.push(node.left)
-        }
-        if(node.right !== null) {
-          queue.push(node.right)
+      // 借助队列实现广度优先搜索
+
+      function bfs(root, callback) {
+        // 1. 如果节点为null，则return
+        if (root === null) return
+        // 2. 定义queue， 把当前节点放进去
+        const queue = [root]
+        // 3. 如果queue有值，就继续遍历
+        while (queue.length) {
+          // 4.从quue中取出第一个值
+          const node = queue.shift()
+          console.log(node.val)
+          // 如果左右节点有值, 就push到queue中
+          if (node.left !== null) {
+            queue.push(node.left)
+          }
+          if (node.right !== null) {
+            queue.push(node.right)
+          }
         }
       }
-    }
-    console.log(111, root)
-    bfs(root, console.log)
-  </script>
-</body>
+      console.log(111, root)
+      bfs(root, console.log)
+    </script>
+  </body>
 </html>
